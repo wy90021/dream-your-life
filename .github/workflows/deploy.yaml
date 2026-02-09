@@ -13,6 +13,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Build project
+      run: npm run build
+    
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
@@ -22,4 +33,4 @@ jobs:
     
     - name: Sync to S3
       run: |
-        aws s3 sync . s3://dream-your-life --delete
+        aws s3 sync dist/ s3://dream-your-life --delete --content-type-by-extension
