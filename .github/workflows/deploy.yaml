@@ -33,4 +33,7 @@ jobs:
     
     - name: Sync to S3
       run: |
-        aws s3 sync dist/ s3://dream-your-life --delete --content-type-by-extension
+        aws s3 sync dist/ s3://dream-your-life --delete
+        aws s3 cp s3://dream-your-life s3://dream-your-life --recursive --exclude "*" --include "*.js" --content-type "application/javascript" --metadata-directive REPLACE
+        aws s3 cp s3://dream-your-life s3://dream-your-life --recursive --exclude "*" --include "*.css" --content-type "text/css" --metadata-directive REPLACE
+        aws s3 cp s3://dream-your-life s3://dream-your-life --recursive --exclude "*" --include "*.html" --content-type "text/html" --metadata-directive REPLACE
